@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRESS_PASSWORD: pass
+    volumes:
+      - appdata:/var/lib/postgresql/data
+
+volumes:
+  appdata:
+  
