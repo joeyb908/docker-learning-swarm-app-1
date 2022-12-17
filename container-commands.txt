@@ -6,7 +6,6 @@ docker service create --name redis --network frontend --replicas 1 redis:3.2
 
 ## worker
 docker service create --name worker --network frontend --replicas 1 bretfisher/examplevotingapp_worker
-docker service update --network-add backend worker
 
 #db
 docker service create --name db --network backend --replicas 1 -e POSTGRES_PASSWORD=pizza1 -e POSTGRES_HOST_AUTH_METHOD=trust --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:9.4
