@@ -1,0 +1,1 @@
+docker service create -p 80:80 --network frontend --replicas 2 bretfisher/examplevotingapp_vote
