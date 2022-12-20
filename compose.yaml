@@ -1,6 +1,8 @@
+# Version 3+ needed for secrets
 version: '3.8'
 
 services:
+# Deploy 2 vote-app nodes
   vote-app:
     image: bretfisher/examplevotingapp_vote
     ports:
@@ -9,7 +11,8 @@ services:
       - frontend
     deploy:
       replicas: 2
-    
+
+# Deploy postgres db    
   db:
     image: postgres:9.4
     networks:
@@ -24,6 +27,7 @@ services:
     secrets:
       - my_secret_data
 
+# Deploy redis node
   redis:
     image: redis:3.2
     networks:
@@ -31,6 +35,7 @@ services:
     deploy:
       replicas: 1
 
+# Deploy worker node
   worker:
     image: bretfisher/examplevotingapp_worker
     networks:
@@ -39,6 +44,7 @@ services:
     deploy:
       replicas: 1
     
+# Deploy results node
   results:
     image: bretfisher/examplevotingapp_result
     ports:
@@ -48,15 +54,18 @@ services:
     deploy:
       replicas: 1
     
+# Create frontend/backend networks
 networks:
   frontend:
     driver: overlay
   backend:
     driver: overlay
 
+# Create persistent db-data volume
 volumes:
   db-data:
 
+# Specify my_secret_data has already been created within Docker CLI
 secrets:
   my_secret_data:
     external: True
